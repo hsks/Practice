@@ -15,7 +15,9 @@ class Item {
     return this.itemName.equalsIgnoreCase(itemName);
   }
 
-  int getPrice() {
-    return unitPrice;
+  int priceForQuantity(Integer quantity) {
+    return multiPrice.getPrice() != 0 ?
+        (quantity / multiPrice.getQuantity()) * multiPrice.getPrice() + (quantity % multiPrice.getQuantity()) * unitPrice
+        : unitPrice * quantity;
   }
 }

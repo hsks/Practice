@@ -8,4 +8,12 @@ class MultiPrice {
     this.price = price;
     this.quantity = quantity;
   }
+
+  int getQuantity() {
+    return quantity;
+  }
+
+  int getPrice() {
+    return price;
+  }
 }
