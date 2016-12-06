@@ -20,17 +20,20 @@ class Shop {
 
   private Map<Item, Integer> countOfItems(String itemsString) {
     List<String> itemsToBuy = Arrays.asList(itemsString.split(""));
-    Map<Item, Integer> countOfItems = new HashMap<>();
-    calculateItemCountAndRemoveItem(itemsToBuy, countOfItems);
-    return countOfItems;
+    return countOfItems(itemsToBuy);
   }
 
-  private void calculateItemCountAndRemoveItem(List<String> itemsToBuy, Map<Item, Integer> countOfItems) {
+  private Map<Item, Integer> countOfItems(List<String> itemsToBuy) {
+    Map<Item, Integer> countOfItems = new HashMap<>();
+    List<String> processedItems = new ArrayList<>();
     for (String itemName : itemsToBuy) {
       int count = calculateCountFor(itemName, itemsToBuy);
-      removeItemFromItemList(itemsToBuy, itemName);
+      if (processedItems.contains(itemName))
+        continue;
+      processedItems.add(itemName);
       countOfItems.put(retrieveItemObjectFor(itemName), count);
     }
+    return countOfItems;
   }
 
   private Item retrieveItemObjectFor(String itemName) {
@@ -53,8 +56,4 @@ class Shop {
     return count;
   }
 
-  private void removeItemFromItemList(List<String> itemsToBuy, String itemName) {
-    ArrayList<String> listOfItemNames = new ArrayList<>(itemsToBuy);
-    while (listOfItemNames.remove(itemName)) ;
-  }
 }
