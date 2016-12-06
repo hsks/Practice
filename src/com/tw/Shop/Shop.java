@@ -1,6 +1,9 @@
 package com.tw.Shop;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class Shop {
   private List<Item> items;
@@ -24,21 +27,17 @@ class Shop {
   }
 
   private Map<Item, Integer> countOfItems(List<String> itemsToBuy) {
-    List<String> processedItems = new ArrayList<>();
     Map<Item, Integer> itemQuantityMap = new HashMap<>();
     for (String itemName : itemsToBuy) {
-      if (!processedItems.contains(itemName)) {
-        updateItemQuantityMap(itemsToBuy, itemName, itemQuantityMap);
-        processedItems.add(itemName);
+      Item item = retrieveItemObjectFor(itemName);
+      if (itemQuantityMap.containsKey(item)) {
+        int previousCountForItem = itemQuantityMap.get(item);
+        itemQuantityMap.put(item, previousCountForItem + 1);
+        continue;
       }
+      itemQuantityMap.put(item, 1);
     }
     return itemQuantityMap;
-  }
-
-  private void updateItemQuantityMap(List<String> itemsToBuy, String itemName,
-                                     Map<Item, Integer> itemQuantityMap) {
-    int count = calculateCountFor(itemName, itemsToBuy);
-    itemQuantityMap.put(retrieveItemObjectFor(itemName), count);
   }
 
   private Item retrieveItemObjectFor(String itemName) {
@@ -51,14 +50,6 @@ class Shop {
 
   private Item dummyItemWithZeroPrice() {
     return new Item("", 0, new MultiPrice(0, 0));
-  }
-
-  private int calculateCountFor(String itemName, List<String> itemsToBuy) {
-    int count = 0;
-    for (String name : itemsToBuy) {
-      if (name.equalsIgnoreCase(itemName)) count++;
-    }
-    return count;
   }
 
 }
