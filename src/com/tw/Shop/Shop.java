@@ -14,16 +14,12 @@ class Shop {
 
   int price(String itemsString) {
     int total = 0;
-    Map<Item, Integer> itemQuantityMap = countOfItems(itemsString);
+    List<String> itemsToBuy = Arrays.asList(itemsString.split(""));
+    Map<Item, Integer> itemQuantityMap = countOfItems(itemsToBuy);
     for (Item item : itemQuantityMap.keySet()) {
       total += item.priceForQuantity(itemQuantityMap.get(item));
     }
     return total;
-  }
-
-  private Map<Item, Integer> countOfItems(String itemsString) {
-    List<String> itemsToBuy = Arrays.asList(itemsString.split(""));
-    return countOfItems(itemsToBuy);
   }
 
   private Map<Item, Integer> countOfItems(List<String> itemsToBuy) {
