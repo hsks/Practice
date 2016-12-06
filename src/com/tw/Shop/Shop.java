@@ -24,7 +24,7 @@ class Shop {
     Map<Item, Integer> countOfItems = new HashMap<>();
     for (String itemName : itemsToBuy
         ) {
-      int count = calculateCountFor(itemsToBuy, itemName);
+      int count = calculateCountFor(itemName, itemsToBuy);
       removeItemFromItemList(itemsToBuy, itemName);
       countOfItems.put(itemObjectFor(itemName), count);
     }
@@ -40,7 +40,7 @@ class Shop {
     throw new IllegalArgumentException("Invalid Item Name");
   }
 
-  private int calculateCountFor(List<String> itemsToBuy, String itemName) {
+  private int calculateCountFor(String itemName, List<String> itemsToBuy) {
     int count = 0;
     for (String name : itemsToBuy
         ) {
