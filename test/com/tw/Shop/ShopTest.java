@@ -8,16 +8,11 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 public class ShopTest {
-  Shop shop;
+  private Shop shop;
 
   @Before
   public void setup() {
     shop = fakeShop();
-  }
-
-  @Test
-  public void shouldCalculateCorrectPriceOfItemA() {
-    assertEquals(50, shop.price("A"));
   }
 
   private Shop fakeShop() {
@@ -27,6 +22,12 @@ public class ShopTest {
         item("C", 20, new MultiPrice(0, 0)),
         item("D", 15, new MultiPrice(0, 0))));
   }
+
+  @Test
+  public void shouldCalculateCorrectPriceOfItemA() {
+    assertEquals(50, shop.price("A"));
+  }
+
 
   @Test
   public void shoudlCalculateCorrectPriceOfItemB() {
@@ -45,7 +46,7 @@ public class ShopTest {
 
   @Test
   public void shouldCalculateTotalBasedOnSpecialPricingForMultipleItems() {
-    assertEquals(195 , shop.price("CDBAAA"));
+    assertEquals(130 , shop.price("AAA"));
   }
 
   @Test

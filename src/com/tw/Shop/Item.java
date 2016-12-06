@@ -17,7 +17,8 @@ class Item {
 
   int priceForQuantity(Integer quantity) {
     return multiPrice.getPrice() != 0 ?
-        (quantity / multiPrice.getQuantity()) * multiPrice.getPrice() + (quantity % multiPrice.getQuantity()) * unitPrice
+        (quantity / multiPrice.getQuantity()) * multiPrice.getPrice() +
+            (quantity % multiPrice.getQuantity()) * unitPrice
         : unitPrice * quantity;
   }
 }

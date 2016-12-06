@@ -12,8 +12,7 @@ class Shop {
   int price(String itemsString) {
     int total = 0;
     Map<Item, Integer> itemQuantityMap = countOfItems(itemsString);
-    for (Item item : itemQuantityMap.keySet()
-        ) {
+    for (Item item : itemQuantityMap.keySet()) {
       total += item.priceForQuantity(itemQuantityMap.get(item));
     }
     return total;
@@ -27,8 +26,7 @@ class Shop {
   }
 
   private void calculateItemCountAndRemoveItem(List<String> itemsToBuy, Map<Item, Integer> countOfItems) {
-    for (String itemName : itemsToBuy
-        ) {
+    for (String itemName : itemsToBuy) {
       int count = calculateCountFor(itemName, itemsToBuy);
       removeItemFromItemList(itemsToBuy, itemName);
       countOfItems.put(retrieveItemObjectFor(itemName), count);
@@ -36,8 +34,7 @@ class Shop {
   }
 
   private Item retrieveItemObjectFor(String itemName) {
-    for (Item item : items
-        ) {
+    for (Item item : items) {
       if (item.hasName(itemName))
         return item;
     }
@@ -50,8 +47,7 @@ class Shop {
 
   private int calculateCountFor(String itemName, List<String> itemsToBuy) {
     int count = 0;
-    for (String name : itemsToBuy
-        ) {
+    for (String name : itemsToBuy) {
       if (name.equalsIgnoreCase(itemName)) count++;
     }
     return count;
@@ -61,5 +57,4 @@ class Shop {
     ArrayList<String> listOfItemNames = new ArrayList<>(itemsToBuy);
     while (listOfItemNames.remove(itemName)) ;
   }
-
 }
