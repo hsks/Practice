@@ -24,21 +24,21 @@ class Shop {
   }
 
   private Map<Item, Integer> countOfItems(List<String> itemsToBuy) {
-    Map<Item, Integer> countOfItems = new HashMap<>();
     List<String> processedItems = new ArrayList<>();
+    Map<Item, Integer> itemQuantityMap = new HashMap<>();
     for (String itemName : itemsToBuy) {
-      addCountToMapIfNotYetAdded(itemsToBuy, countOfItems, processedItems, itemName);
+      if (!processedItems.contains(itemName)) {
+        updateItemQuantityMap(itemsToBuy, itemName, itemQuantityMap);
+        processedItems.add(itemName);
+      }
     }
-    return countOfItems;
+    return itemQuantityMap;
   }
 
-  private void addCountToMapIfNotYetAdded(List<String> itemsToBuy, Map<Item, Integer> countOfItems,
-                                          List<String> processedItems, String itemName) {
+  private void updateItemQuantityMap(List<String> itemsToBuy, String itemName,
+                                     Map<Item, Integer> itemQuantityMap) {
     int count = calculateCountFor(itemName, itemsToBuy);
-    if (processedItems.contains(itemName))
-      return;
-    processedItems.add(itemName);
-    countOfItems.put(retrieveItemObjectFor(itemName), count);
+    itemQuantityMap.put(retrieveItemObjectFor(itemName), count);
   }
 
   private Item retrieveItemObjectFor(String itemName) {
