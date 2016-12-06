@@ -27,13 +27,18 @@ class Shop {
     Map<Item, Integer> countOfItems = new HashMap<>();
     List<String> processedItems = new ArrayList<>();
     for (String itemName : itemsToBuy) {
-      int count = calculateCountFor(itemName, itemsToBuy);
-      if (processedItems.contains(itemName))
-        continue;
-      processedItems.add(itemName);
-      countOfItems.put(retrieveItemObjectFor(itemName), count);
+      addCountToMapIfNotYetAdded(itemsToBuy, countOfItems, processedItems, itemName);
     }
     return countOfItems;
+  }
+
+  private void addCountToMapIfNotYetAdded(List<String> itemsToBuy, Map<Item, Integer> countOfItems,
+                                          List<String> processedItems, String itemName) {
+    int count = calculateCountFor(itemName, itemsToBuy);
+    if (processedItems.contains(itemName))
+      return;
+    processedItems.add(itemName);
+    countOfItems.put(retrieveItemObjectFor(itemName), count);
   }
 
   private Item retrieveItemObjectFor(String itemName) {
