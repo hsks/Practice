@@ -3,12 +3,18 @@ package com.tw.Shop;
 class Item {
   private String itemName;
   private int unitPrice;
-  private MultiPrice multiPrice;
+  private DiscountedPrice discountedPrice;
 
-  Item(String itemName, int unitPrice, MultiPrice multiPrice) {
+  Item(String itemName, int unitPrice, DiscountedPrice discountedPrice) {
     this.itemName = itemName;
     this.unitPrice = unitPrice;
-    this.multiPrice = multiPrice;
+    this.discountedPrice = discountedPrice;
+  }
+
+  Item(String name, int unitPrice) {
+    itemName = name;
+    this.unitPrice = unitPrice;
+    discountedPrice = new DiscountedPrice(0, 0);
   }
 
   boolean hasName(String itemName) {
@@ -16,9 +22,9 @@ class Item {
   }
 
   int priceForQuantity(Integer quantity) {
-    return multiPrice.getPrice() != 0 ?
-        (quantity / multiPrice.getQuantity()) * multiPrice.getPrice() +
-            (quantity % multiPrice.getQuantity()) * unitPrice
+    return discountedPrice.getPrice() != 0 ?
+        (quantity / discountedPrice.getQuantity()) * discountedPrice.getPrice() +
+            (quantity % discountedPrice.getQuantity()) * unitPrice
         : unitPrice * quantity;
   }
 }

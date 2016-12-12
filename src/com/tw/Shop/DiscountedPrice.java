@@ -1,10 +1,10 @@
 package com.tw.Shop;
 
-class MultiPrice {
+class DiscountedPrice {
   private int price;
   private int quantity;
 
-  MultiPrice(int quantity, int price) {
+  DiscountedPrice(int quantity, int price) {
     this.price = price;
     this.quantity = quantity;
   }

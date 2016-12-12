@@ -15,14 +15,18 @@ class Shop {
   int price(String itemsString) {
     int total = 0;
     List<String> itemsToBuy = Arrays.asList(itemsString.split(""));
-    Map<Item, Integer> itemQuantityMap = countOfItems(itemsToBuy);
-    for (Item item : itemQuantityMap.keySet()) {
-      total += item.priceForQuantity(itemQuantityMap.get(item));
+    try {
+      Map<Item, Integer> itemQuantityMap = countOfItems(itemsToBuy);
+      for (Item item : itemQuantityMap.keySet()) {
+        total += item.priceForQuantity(itemQuantityMap.get(item));
+      }
+    } catch (ItemNotFoundException ex) {
+      System.out.println(ex);
     }
     return total;
   }
 
-  private Map<Item, Integer> countOfItems(List<String> itemsToBuy) {
+  private Map<Item, Integer> countOfItems(List<String> itemsToBuy) throws ItemNotFoundException {
     Map<Item, Integer> itemQuantityMap = new HashMap<>();
     for (String itemName : itemsToBuy) {
       Item item = retrieveItemObjectFor(itemName);
@@ -36,16 +40,11 @@ class Shop {
     return itemQuantityMap;
   }
 
-  private Item retrieveItemObjectFor(String itemName) {
+  private Item retrieveItemObjectFor(String itemName) throws ItemNotFoundException {
     for (Item item : items) {
       if (item.hasName(itemName))
         return item;
     }
-    return dummyItemWithZeroPrice();
+    throw new ItemNotFoundException("The requested item was not found");
   }
-
-  private Item dummyItemWithZeroPrice() {
-    return new Item("", 0, new MultiPrice(0, 0));
-  }
-
 }
